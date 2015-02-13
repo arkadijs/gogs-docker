@@ -20,7 +20,7 @@ Usage:
 - The data: Git repositories, HTTPS and SSH keys, Gogs config, etc. will be under /var/git.
 - DOMAIN is required for proper Gogs and HTTPS certificate configuration.
 - SSH_PORT and HTTPS_PORT are optional, but will default to 50022 and 50443 respectively. Those variables exists to configure links presented by Gogs as part of its UI and in email text.
-- `/sbin/my_init -- bash -l` is optional to enter contain with shell at startup.
+- `/sbin/my_init -- bash -l` is optional to enter container with shell at startup.
 
 [Gogs]: http://gogs.io/
 [phusion/baseimage]: http://phusion.github.io/baseimage-docker/
