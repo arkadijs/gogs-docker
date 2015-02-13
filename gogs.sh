@@ -7,7 +7,8 @@ GOGS_CUSTOM=$HOME
 export PATH USER HOME GOGS_CUSTOM
 
 if test -z "$DOMAIN"; then
-    echo -e "Please set a domain with:\n\tdocker -e DOMAIN=git.domain.com\nto generate proper Gogs config and HTTPS key."
+    echo "Please set a domain with:\n\tdocker -e DOMAIN=git.domain.com\nto generate proper Gogs config and HTTPS key."
+    sleep 20
     exit 1
 fi
 
