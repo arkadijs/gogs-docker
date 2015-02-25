@@ -11,6 +11,13 @@ if test -z "$DOMAIN"; then
     sleep 20
     exit 1
 fi
+if test -n "$HTTP_PORT"; then
+    protocol=http
+    port=$HTTP_PORT
+else
+    protocol=https
+    port=${HTTPS_PORT:-50443}
+fi
 
 chown $USER:$USER $HOME
 
@@ -19,13 +26,14 @@ if ! test -d $GOGS_CUSTOM/conf; then
     key=$(dd if=/dev/urandom bs=32 count=1 status=none | base64)
     sed -e "s|{{DOMAIN}}|$DOMAIN|" \
         -e "s|{{SECRET_KEY}}|$key|" \
-        -e "s|{{HTTPS_PORT}}|${HTTPS_PORT:-50443}|" \
+        -e "s|{{PROTOCOL}}|$protocol|" \
+        -e "s|{{HTTP_PORT}}|$port|" \
         -e "s|{{SSH_PORT}}|${SSH_PORT:-50022}|" \
         < /opt/gogs/app.ini.custom > $GOGS_CUSTOM/conf/app.ini
     chown $USER:$USER $GOGS_CUSTOM/conf/app.ini
 fi
 
-if ! test -f $GOGS_CUSTOM/conf/cert.pem; then
+if test $protocol = https -a ! -f $GOGS_CUSTOM/conf/cert.pem; then
     openssl req -new -newkey rsa:2048 -nodes -x509 -days 5000 -extensions v3_ca \
       -subj "/CN=$DOMAIN" \
       -keyout $GOGS_CUSTOM/conf/key.pem -out $GOGS_CUSTOM/conf/cert.pem

@@ -1,5 +1,5 @@
 #!/bin/sh -xe
-v=0.5.11-1
+v=0.5.11-2
 tag=arkadi/gogs
 tag2=$DEV_REGISTRY/$tag
 docker build -t $tag:$v .

@@ -7,3 +7,4 @@ mkdir -p /opt
 cd /opt
 unzip -q /tmp/gogs.zip
 rm /tmp/gogs.zip
+chmod 755 /opt/gogs/gogs
